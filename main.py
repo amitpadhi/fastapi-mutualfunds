@@ -25,6 +25,10 @@ def get_db():
         yield db
     finally:
         db.close()
+        
+@app.get("/")
+def root():
+    return {"message": "FastAPI Mutual Funds API is running!"}
 
 # ---------------------------
 # JWT helpers
