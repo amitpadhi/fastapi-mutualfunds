@@ -10,7 +10,8 @@ from database import (
 from passlib.context import CryptContext
 from datetime import datetime, timedelta, timezone
 
-app = FastAPI(title="Mutual Funds API", root_path="/")
+# ✅ Removed root_path="/" to fix docs issue
+app = FastAPI(title="Mutual Funds API")
 Base.metadata.create_all(bind=engine)
 
 SECRET_KEY = "f3e5cd2d4d60aceafb73f4c69c876db3104b85ea28483bb251a6cfa49c5b2c36"
@@ -29,6 +30,11 @@ def get_db():
 @app.get("/")
 def root():
     return {"message": "FastAPI Mutual Funds API is running!"}
+
+# ✅ Added health check endpoint
+@app.get("/ping")
+def ping():
+    return {"status": "ok"}
 
 # ---------------------------
 # JWT helpers
